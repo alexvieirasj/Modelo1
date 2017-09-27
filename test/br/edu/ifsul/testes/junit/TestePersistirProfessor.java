@@ -47,13 +47,13 @@ public class TestePersistirProfessor {
         boolean exception = false;
         try {
             Professor p = new Professor();
-            Especialidade es = em.find(Especialidade.class, 1);
+            Especialidade es = em.find(Especialidade.class, 3);
             p.setEspecialidade(es);
-            p.setTopicosInteresse("Quimica Industrial e atomica");
-            p.setTitulacao("Mestre em Educação");
-            p.setNome("Silvio Dantas");
-            p.setEmail("silvio-dantas@gmail.com");
-            p.setNascimento(new GregorianCalendar(1985, Calendar.AUGUST, 18));
+            p.setTopicosInteresse("teses");
+            p.setTitulacao("wqe");
+            p.setNome("qewqe");
+            p.setEmail("mqweqw@hotmail.com");
+            p.setNascimento(new GregorianCalendar(1982, Calendar.MARCH, 15));
             em.getTransaction().begin();
             em.persist(p);
             em.getTransaction().commit();

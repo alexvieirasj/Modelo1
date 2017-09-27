@@ -6,7 +6,9 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,7 +34,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author alexv
  */
 @Entity
-@Inheritance(strategy =InheritanceType.JOINED )
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "aluno")
 public class Aluno implements Serializable {
 
@@ -51,13 +56,21 @@ public class Aluno implements Serializable {
     @Length(max = 40, message = "O email não pode ter mais que {max} caracteres")
     @Column(name = "email", length = 40, nullable = false)
     private String email;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "nascimento", nullable = false)
     private Calendar nascimento;
-    
-    public Aluno(){
-        
+
+    @ManyToMany //cria a lista associativa de disciplina
+    @JoinTable(name = "alunosdaDisciplina",
+            joinColumns
+            = @JoinColumn(name = "aluno", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns
+            = @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false))
+    private List<Disciplina> disciplinasdosAlunos = new ArrayList<>(); 
+
+    public Aluno() {
+
     }
 
     public Integer getId() {
@@ -75,7 +88,7 @@ public class Aluno implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -91,11 +104,13 @@ public class Aluno implements Serializable {
     public void setNascimento(Calendar nascimento) {
         this.nascimento = nascimento;
     }
-    
+
+   
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.getId());
         return hash;
     }
 
@@ -115,6 +130,14 @@ public class Aluno implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public List<Disciplina> getDisciplinasdosAlunos() {
+        return disciplinasdosAlunos;
+    }
+
+    public void setDisciplinasdosAlunos(List<Disciplina> disciplinasdosAlunos) {
+        this.disciplinasdosAlunos = disciplinasdosAlunos;
     }
 
 }

@@ -8,6 +8,7 @@ package br.edu.ifsul.testes.junit;
 import br.edu.ifsul.modelo.Instituicao;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -47,9 +48,7 @@ public class TestePersistirInstituicao {
         try {
             Instituicao i = new Instituicao();
             i.setNome("Instituto Federal Sul Rio Grandense");
-            Calendar c = Calendar.getInstance();
-            c.set(2002, 5, 10); // 10/06/2002
-            i.setAnoFundacao(c);
+            i.setAnoFundacao(new GregorianCalendar(2002, Calendar.APRIL, 10));
             em.getTransaction().begin();
             em.persist(i);
             em.getTransaction().commit();

@@ -40,7 +40,6 @@ public class Professor extends Aluno implements Serializable{
     
     @NotNull(message = "Os topicosInteresse não pode ser nulo")
     @NotBlank(message = "Os topicosInteresse não pode ser em branco")
-    @Length(max = 40, message = "Os topicosInteresse não pode ter maix que {max} caracteres")
     @Column(name = "topicosInteresse", columnDefinition="text", nullable = false)
     private String topicosInteresse;
     
