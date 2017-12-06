@@ -84,6 +84,15 @@ public class Curso implements Serializable{
         
     }
     
+    public void adicionarDisciplina(Disciplina obj){
+        obj.setCurso(this);
+        this.disciplinas.add(obj);
+    }
+
+    public void removerDisciplina(int index){
+        this.disciplinas.remove(index);
+    }
+    
      public Integer getId() {
         return id;
     }
